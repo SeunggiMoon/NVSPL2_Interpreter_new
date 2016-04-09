@@ -5,12 +5,12 @@ double var[1024] = { 0.0 }, n;
 char name[512], b;
 FILE *in, *log, *tmp;
 
-
-
 bool comment, ifexit;
 
 void analyzeCode()
 {
+	int p_cnt, m_cnt;
+
 	tmp = fopen("nvspl2.tmp", "wt");
 	do
 	{
@@ -20,7 +20,8 @@ void analyzeCode()
 
 		if (!comment)
 		{
-			if (b != ' ' && b != '\n') fprintf(tmp, "%c", b);
+			if (b != ' ' && b != '\n')
+				fprintf(tmp, "%c", b);
 		}
 	} while (b != 'Q');
 

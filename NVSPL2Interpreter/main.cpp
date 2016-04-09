@@ -5,16 +5,16 @@ void init();
 
 int main(int argc, char *argv[])
 {
-	if (argc != 2)
+	if (argc < 2)
 	{
-		printf("usage : nvspl2 <filename>\n");
+		printf("usage : <programname> <filename>\n");
 		return 0;
 	}
 	in = fopen(argv[1], "rt");
 
 	if (in == NULL)
 	{
-		printf("error : Wrong file name!\n");
+		printf("error : wrong file name!\n");
 		return 0;
 	}
 
