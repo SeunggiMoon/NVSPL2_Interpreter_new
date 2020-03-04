@@ -14,7 +14,7 @@ FILE *in, *log, *tmp;
 
 bool comment;
 
-void analyzeCode()
+void analyzeCode(FILE *fp)
 {
 	int p_cnt, m_cnt;
 

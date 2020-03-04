@@ -5,6 +5,8 @@
 // analyze.h
 //
 
+#pragma once
+
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>
@@ -19,5 +21,4 @@ extern FILE *in, *log, *tmp;
 
 extern bool comment, ifexit;
 
-void analyzeCode();
-void runCode();
+void analyzeCode(FILE *);
