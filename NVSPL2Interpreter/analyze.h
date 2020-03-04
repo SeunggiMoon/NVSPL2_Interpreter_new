@@ -1,3 +1,10 @@
+//
+// NVSPL2 Interpreter v7
+// (c) 2015~2020 Naissoft. All rights reserved.
+//
+// analyze.h
+//
+
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>

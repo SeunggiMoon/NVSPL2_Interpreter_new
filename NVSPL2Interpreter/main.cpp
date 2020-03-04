@@ -1,3 +1,10 @@
+//
+// NVSPL2 Interpreter v7
+// (c) 2015~2020 Naissoft. All rights reserved.
+//
+// main.cpp - ¡÷ ∑Á∆æ
+//
+
 #include "analyze.h"
 #include <Windows.h>
 
@@ -7,19 +14,19 @@ int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
-		printf("usage : <programname> <filename>\n");
+		printf("usage : nvspl2 <filename>\n");
 		return 0;
 	}
 	in = fopen(argv[1], "rt");
 
 	if (in == NULL)
 	{
-		printf("error : wrong file name!\n");
+		printf("error : wrong filename\n");
 		return 0;
 	}
 
 	printf("\n");
-	printf("Naissoft Very Simple Programming Language Interpreter v6\n(C) 2015~2016 Naissoft.\n\n");
+	printf("NVSPL2 Interpreter v7\n(C) 2015~2020 Naissoft. All rights reserved.\n\n");
 
 	printf("Analyzing...\n");
 	analyzeCode();
