@@ -7,12 +7,13 @@
 
 #include "code.h"
 
-void initCode(Code* code, int len)
+void initCode(Code* code)
 {
-
+	code->arr_idx = 0;
+	code->str_idx = 0;
 }
 
 void addChar(Code* code, char ch)
 {
-
+	code->str.push_back(ch);
 }

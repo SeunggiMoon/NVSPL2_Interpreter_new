@@ -7,9 +7,11 @@
 
 #pragma once
 
+#include <vector>
+
 struct Code
 {
-	char* str;
+	std::vector<char> str;
 	int arr_idx;
 	int str_idx;
 };
@@ -17,3 +19,5 @@ struct Code
 void initCode(Code *code, int len);
 
 void addChar(Code* code, char ch);
+
+void freeCode(Code* code);
