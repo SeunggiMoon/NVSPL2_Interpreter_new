@@ -9,6 +9,9 @@
 
 int runCode(Code *code)
 {
+	std::string tmp1;
+	const char* tmp2;
+
 	switch (code->str[code->str_idx])
 	{
 	case 'F':
@@ -30,7 +33,9 @@ int runCode(Code *code)
 		code->arr[code->arr_idx] -= 1.0;
 		break;
 	case ',':
-		sscanf(&code->str[0] + code->str_idx, "%lf", &code->input);
+		tmp1 = std::string(code->str.begin() + code->str_idx + 1, code->str.end());
+		tmp2 = tmp1.c_str();
+		sscanf(tmp2, "%lf", &code->input);
 		code->arr[code->arr_idx] += code->input;
 		break;
 	case 'I':
@@ -71,7 +76,6 @@ int runCode(Code *code)
 				if (code->str[code->str_idx] == ';') code->cdepth++;
 				if (code->str[code->str_idx] == ':') code->cdepth--;
 			}
-			code->str_idx--;
 		}
 		break;
 	case 'Q':
@@ -81,6 +85,5 @@ int runCode(Code *code)
 	default:
 		break;
 	}
-
 	return retVal_success;
 }

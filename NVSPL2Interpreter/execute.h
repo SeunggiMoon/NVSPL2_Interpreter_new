@@ -12,6 +12,8 @@ constexpr int retVal_success = 0;
 constexpr int retVal_overflow = -1;
 constexpr int retVal_underflow = -2;
 
+#include <string>
+
 #include "code.h"
 
 int runCode(Code *code);

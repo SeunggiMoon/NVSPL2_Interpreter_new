@@ -14,6 +14,9 @@ void initCode(Code* code)
 	code->arr_idx = 0;
 	code->str_idx = 0;
 	code->input = 0.0;
+
+	code->depth = 0;
+	code->cdepth = 0;
 }
 
 void addChar(Code* code, char ch)

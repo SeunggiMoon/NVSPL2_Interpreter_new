@@ -20,4 +20,5 @@ void analyzeCode(FILE *fp, Code *code)
 		if (!comment && c != ' ' && c != '\n') addChar(code, c);
 
 	} while (c != 'Q');
+	addChar(code, '\0');
 }

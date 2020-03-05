@@ -6,6 +6,7 @@
 //
 
 #include "analyze.h"
+#include "execute.h"
 #include <Windows.h>
 
 int main(int argc, char *argv[])
@@ -25,6 +26,7 @@ int main(int argc, char *argv[])
 
 	int retValue;
 	Code exeCode;
+	bool ifExit = false;
 
 	printf("\n");
 	printf("NVSPL2 Interpreter v7\n(c) 2015~2020 Naissoft. All rights reserved.\n\n");
@@ -34,24 +36,45 @@ int main(int argc, char *argv[])
 	initCode(&exeCode);
 
 	// analyze code
-	// 
-	// analyzeCode(in);
-	// fclose(in);
+
+	analyzeCode(in, &exeCode);
+	fclose(in);
+
+	// print intermediate code
+
+	printf("\n%s\n\n", &exeCode.str[0]);
 
 	printf("Executing...\n\n");
-
 	DWORD t = GetTickCount();
-	
-	// run code
-	// 
-	// retValue = runCode(code);
-	// 
-	// switch (retValue)
-	// {
-	//     ...
+
+	// execute code
+
+	do
+	{
+		retValue = runCode(&exeCode);
+
+		switch (retValue)
+		{
+		case retVal_exit:
+			ifExit = true;
+			break;
+		case retVal_success:
+			break;
+		case retVal_overflow:
+			printf("Runtime Error : Memory Overflow\n");
+			ifExit = true;
+			break;
+		case retVal_underflow:
+			printf("Runtime Error : Memory Underflow\n");
+			ifExit = true;
+			break;
+		}
+		// printf("%d ", exeCode.str_idx);
+		exeCode.str_idx++;
+	} while (!ifExit);
 
 	DWORD diff = (GetTickCount() - t);
-	printf("\n\nFinished! (%.2lfs)\n", (double)diff / 1000);
+	printf("\n\nExecution finished! (%.2lfs)\n", (double)diff / 1000);
 
 	return 0;
 }
