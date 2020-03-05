@@ -12,13 +12,14 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "code.h"
+
 #define MAX_MEM 1024
 
 extern int cnt, depth, cdepth;
 extern double n;
 extern char name[512], b;
-extern FILE *in, *log, *tmp;
 
 extern bool comment, ifexit;
 
-void analyzeCode(FILE *);
+void analyzeCode(FILE *fp, Code *code);

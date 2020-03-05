@@ -7,4 +7,6 @@
 
 #pragma once
 
-int runCode();
+#include "code.h"
+
+int runCode(Code code);

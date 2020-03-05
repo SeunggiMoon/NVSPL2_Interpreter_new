@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 		printf("usage : nvspl2 <filename>\n");
 		return 0;
 	}
-	in = fopen(argv[1], "rt");
+	FILE* in = fopen(argv[1], "rt");
 
 	if (in == NULL)
 	{
@@ -23,18 +23,32 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
+	int retValue;
+	Code exeCode;
+
 	printf("\n");
 	printf("NVSPL2 Interpreter v7\n(c) 2015~2020 Naissoft. All rights reserved.\n\n");
 
 	printf("Analyzing...\n");
 
+	initCode(&exeCode);
+
 	// analyze code
+	// 
+	// analyzeCode(in);
+	// fclose(in);
 
 	printf("Executing...\n\n");
 
 	DWORD t = GetTickCount();
 	
 	// run code
+	// 
+	// retValue = runCode(code);
+	// 
+	// switch (retValue)
+	// {
+	//     ...
 
 	DWORD diff = (GetTickCount() - t);
 	printf("\n\nFinished! (%.2lfs)\n", (double)diff / 1000);

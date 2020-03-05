@@ -10,18 +10,14 @@
 int cnt, depth, cdepth;
 double var[1024] = { 0.0 }, n;
 char name[512], b;
-FILE *in, *log, *tmp;
 
 bool comment;
 
-void analyzeCode(FILE *fp)
+void analyzeCode(FILE *fp, Code *code)
 {
-	int p_cnt, m_cnt;
-
-	tmp = fopen("nvspl2.tmp", "wt");
 	do
 	{
-		fscanf(in, "%c", &b);
+		fscanf(fp, "%c", &b);
 		if (b == '#') comment = true;
 		if (b == '\n') comment = false;
 
@@ -31,6 +27,4 @@ void analyzeCode(FILE *fp)
 				fprintf(tmp, "%c", b);
 		}
 	} while (b != 'Q');
-
-	fclose(tmp);
 }

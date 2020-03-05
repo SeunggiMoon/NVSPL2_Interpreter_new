@@ -16,8 +16,6 @@ struct Code
 	int str_idx;
 };
 
-void initCode(Code *code, int len);
+void initCode(Code *code);
 
 void addChar(Code* code, char ch);
-
-void freeCode(Code* code);

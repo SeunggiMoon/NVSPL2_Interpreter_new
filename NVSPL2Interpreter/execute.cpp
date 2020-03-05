@@ -7,7 +7,7 @@
 
 #include "execute.h"
 
-int runCode()
+int runCode(Code code)
 {
 	switch (b)
 	{
