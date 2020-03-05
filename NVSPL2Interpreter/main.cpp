@@ -61,11 +61,11 @@ int main(int argc, char *argv[])
 		case retVal_success:
 			break;
 		case retVal_overflow:
-			printf("Runtime Error : Memory Overflow\n");
+			printf("Runtime error : Memory overflow\n");
 			ifExit = true;
 			break;
 		case retVal_underflow:
-			printf("Runtime Error : Memory Underflow\n");
+			printf("Runtime error : Memory underflow\n");
 			ifExit = true;
 			break;
 		}
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 	} while (!ifExit);
 
 	DWORD diff = (GetTickCount() - t);
-	printf("\n\nExecution finished! (%.2lfs)\n", (double)diff / 1000);
+	printf("\nExecution finished with return value %d (%.3lfs)\n", retValue, (double)diff / 1000);
 
 	return 0;
 }
