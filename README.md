@@ -1,1 +1,2 @@
-# NVSPL2_Interpreter_new
+# NVSPL2
+## NVSPL2 언어
