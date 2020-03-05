@@ -14,7 +14,7 @@
 ## 1. NVSPL2 언어
 
 ### 1-1. 개요
-적은 명령어로도 프로그래밍을 할 수 있게 만들어진 스크립트 언어이자, 난해한 프로그래밍 언어의 일종입니다.   
+적은 명령어로도 프로그래밍을 할 수 있는 스크립트 언어이자, 난해한 프로그래밍 언어의 일종입니다.   
 현재 표준 v1, v2(NVSPL2-15)를 거쳐 표준 v3(NVSPL2-20)까지 제정되어 있습니다.   
 아래의 설명은 표준 v3을 따릅니다.   
 
@@ -210,7 +210,8 @@ NVSPL2 인터프리터가 위치한 디렉토리에서 명령 프롬프트를 �
 주의 : 아래의 프로그램들은 이전 표준(v2)을 만족하며, 일부는 비표준 확장이 적용되어 있습니다.
 
 - 암겨혀님의 NVSPL2 JIT(Just-in-time) 컴파일러입니다.   
-http://cafe.naver.com/clubc/14553
+http://cafe.naver.com/clubc/14553   
+https://github.com/dlarudgus20/NVSPL2jit   
    
 - 하와이님의 NVSPL2 개발 환경인 NVSPL2 Studio입니다.   
 http://cafe.naver.com/clubc/14554
@@ -225,4 +226,7 @@ http://cafe.naver.com/clubc/14560
 
 ## 4. 도움을 주신 분들
 
-[C언어 클럽](http://cafe.naver.com/clubc)과 [God Game Software](http://cafe.naver.com/godgamesoftware)의 여러 회원분들께서 정말 많은 관심을 보여 주셨습니다.
+[C언어 클럽](http://cafe.naver.com/clubc)과 [God Game Software](http://cafe.naver.com/godgamesoftware)의 여러 회원분들께서 많은 관심을 보여 주셨습니다.
+- 암겨혀(dlarudgus20)님 : 구구단 소스 코드 제공, JIT 컴파일러 구현, 여러 문제점 발견
+- 하와이(pjy8548759)님 : NVSPL2 Studio, NVSPL2 빌더 구현
+- 기타 도움 주신 분들께 감사드립니다.
