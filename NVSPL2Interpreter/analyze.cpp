@@ -7,24 +7,17 @@
 
 #include "analyze.h"
 
-int cnt, depth, cdepth;
-double var[1024] = { 0.0 }, n;
-char name[512], b;
-
-bool comment;
-
 void analyzeCode(FILE *fp, Code *code)
 {
+	bool comment = false;
+	char c;
 	do
 	{
-		fscanf(fp, "%c", &b);
-		if (b == '#') comment = true;
-		if (b == '\n') comment = false;
+		fscanf(fp, "%c", &c);
+		if (c == '#') comment = true;
+		if (c == '\n') comment = false;
 
-		if (!comment)
-		{
-			if (b != ' ' && b != '\n')
-				fprintf(tmp, "%c", b);
-		}
-	} while (b != 'Q');
+		if (!comment && c != ' ' && c != '\n') addChar(code, c);
+
+	} while (c != 'Q');
 }

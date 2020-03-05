@@ -9,8 +9,11 @@
 
 void initCode(Code* code)
 {
+	code->str.reserve(1024);
+
 	code->arr_idx = 0;
 	code->str_idx = 0;
+	code->input = 0.0;
 }
 
 void addChar(Code* code, char ch)
