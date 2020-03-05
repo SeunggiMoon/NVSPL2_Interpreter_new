@@ -69,7 +69,6 @@ int main(int argc, char *argv[])
 			ifExit = true;
 			break;
 		}
-		// printf("%d ", exeCode.str_idx);
 		exeCode.str_idx++;
 	} while (!ifExit);
 

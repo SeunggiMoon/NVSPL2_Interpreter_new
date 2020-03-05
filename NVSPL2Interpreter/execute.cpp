@@ -66,7 +66,6 @@ int runCode(Code *code)
 	case ':':
 		code->depth++;
 		code->cdepth++;
-		printf("depth : %d, cdepth : %d\n", code->depth, code->cdepth);
 		break;
 	case ';':
 		if (code->arr[code->arr_idx] != 0.0)
@@ -74,13 +73,17 @@ int runCode(Code *code)
 			while (true)
 			{
 				code->str_idx--;
-				if (code->str[code->str_idx] == ':' && code->cdepth == code->depth) break;
+				if (code->str[code->str_idx] == ':' && code->cdepth == code->depth)
+					break;
 				if (code->str[code->str_idx] == ';') code->cdepth++;
 				if (code->str[code->str_idx] == ':') code->cdepth--;
 			}
-			printf("depth : %d, cdepth : %d\n", code->depth, code->cdepth);
 		}
-		else code->depth--;
+		else
+		{
+			code->depth--;
+			code->cdepth--;
+		}
 		break;
 	case 'Q':
 	case 'q':
