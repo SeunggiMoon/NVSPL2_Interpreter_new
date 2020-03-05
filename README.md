@@ -9,6 +9,7 @@
 [4. 도움을 주신 분들](#contributors)   
 
 <a name="language"/>
+
 ## 1. NVSPL2 언어
 
 ### 1-1. 개요
@@ -142,12 +143,15 @@ Q
 `2 1 2` 부터 `9 9 81`까지 출력합니다.
 
 <a name="interpreter"/>
+
 ## 2. NVSPL2 인터프리터
 
 ### 2-1. 개요
 
 <a name="third-party"/>
+
 ## 3. 기타 서드 파티 인터프리터, 컴파일러 및 개발 환경
 
 <a name="contributors"/>
+
 ## 4. 도움을 주신 분들
