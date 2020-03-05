@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
-		printf("usage : nvspl2 <filename>\n");
+		printf("usage : nvspl2 <filename> <options...>\n");
 		return 0;
 	}
 	FILE* in = fopen(argv[1], "rt");
@@ -40,9 +40,9 @@ int main(int argc, char *argv[])
 	analyzeCode(in, &exeCode);
 	fclose(in);
 
-	// print intermediate code
+	// print intermediate code - v8 feature!
 
-	printf("\n%s\n\n", &exeCode.str[0]);
+	// printf("\n%s\n\n", &exeCode.str[0]);
 
 	printf("Executing...\n\n");
 	DWORD t = GetTickCount();
