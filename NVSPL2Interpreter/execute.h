@@ -31,6 +31,8 @@
 
 #include "code.h"
 
+#include <string>
+
 constexpr int retVal_exit = 0;
 constexpr int retVal_success = 1;
 constexpr int retVal_overflow = -1;

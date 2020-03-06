@@ -62,9 +62,7 @@ int main(int argc, char *argv[])
 	Code exeCode;
 	bool ifExit = false;
 
-	printf("\n");
-	printf("NVSPL2 Interpreter v8\n(c) 2015~2020 Naissoft. All rights reserved.\n\n");
-
+	printf("\nNVSPL2 Interpreter v8\n(c) 2015~2020 Naissoft. All rights reserved.\n\n");
 	printf("Analyzing...\n");
 
 	initCode(&exeCode);
@@ -76,7 +74,31 @@ int main(int argc, char *argv[])
 
 	// print intermediate code - v8 feature!
 
-	if (optPrnInt) printf("\n%s\n\n", &exeCode.str[0]);
+	if (optPrnInt)
+	{
+		printf("Printing intermediate code...\n");
+		printf("\n%s\n\n", &exeCode.str[0]);
+	}
+
+	// save intermediate code - v8 feature!
+	
+	if (optSavInt)
+	{
+		printf("Saving intermediate code...\n");
+
+		std::string fName = argv[1];
+		std::string fSuffix = "-intermediate.nvs";
+		fName += fSuffix;
+
+		FILE* intCode = fopen(fName.c_str(), "wt");
+		if (intCode == NULL)
+		{
+			printf("error : failed to create intermediate code file\n");
+			return 0;
+		}
+		fprintf(intCode, "%s", &exeCode.str[0]);
+		fclose(intCode);
+	}
 
 	printf("Executing...\n\n");
 	DWORD t = GetTickCount();

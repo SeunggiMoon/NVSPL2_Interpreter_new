@@ -29,8 +29,6 @@
 
 #include "execute.h"
 
-#include <string>
-
 int runCode(Code *code)
 {
 	std::string tmp1;
