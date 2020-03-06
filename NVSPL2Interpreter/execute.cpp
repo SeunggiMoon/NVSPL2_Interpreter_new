@@ -130,8 +130,11 @@ int runCode(Code *code)
 				if (code->str[code->str_idx] == ';') code->cdepth++;
 				if (code->str[code->str_idx] == ':') code->cdepth--;
 			}
-			fputc('\n', logFile);
-			for (int i = 0; i < (code->depth) * 4; i++) fputc(' ', logFile); // indent 구현
+			if (optSavLog)
+			{
+				fputc('\n', logFile);
+				for (int i = 0; i < (code->depth) * 4; i++) fputc(' ', logFile); // indent 구현
+			}
 		}
 		else
 		{
