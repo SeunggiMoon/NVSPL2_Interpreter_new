@@ -6,6 +6,10 @@
 # NVSPL2 source files
 *.nvs
 
+# text and log files
+*.txt
+*.log
+
 # User-specific files
 *.rsuser
 *.suo
