@@ -38,4 +38,11 @@
 
 #define MAX_MEM 1024
 
+extern bool optPrnInt;
+extern bool optSavInt;
+extern bool optSavOut;
+extern bool optSavLog;
+extern bool optRunSbs;
+extern bool optDbgMod;
+
 void analyzeCode(FILE *fp, Code *code);

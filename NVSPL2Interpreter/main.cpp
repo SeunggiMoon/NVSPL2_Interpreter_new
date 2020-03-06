@@ -31,6 +31,15 @@
 #include "execute.h"
 #include <Windows.h>
 
+// options
+
+bool optPrnInt = false;
+bool optSavInt = false;
+bool optSavOut = false;
+bool optSavLog = false;
+bool optRunSbs = false;
+bool optDbgMod = false;
+
 void getArgs(int argc, char* argv[]);
 
 int main(int argc, char *argv[])
@@ -40,8 +49,9 @@ int main(int argc, char *argv[])
 		printf("usage : nvspl2 <filename> <options...>\n");
 		return 0;
 	}
-	FILE* in = fopen(argv[1], "rt");
+	getArgs(argc, argv);
 
+	FILE* in = fopen(argv[1], "rt");
 	if (in == NULL)
 	{
 		printf("error : wrong filename\n");
@@ -53,7 +63,7 @@ int main(int argc, char *argv[])
 	bool ifExit = false;
 
 	printf("\n");
-	printf("NVSPL2 Interpreter v7\n(c) 2015~2020 Naissoft. All rights reserved.\n\n");
+	printf("NVSPL2 Interpreter v8\n(c) 2015~2020 Naissoft. All rights reserved.\n\n");
 
 	printf("Analyzing...\n");
 
@@ -66,7 +76,7 @@ int main(int argc, char *argv[])
 
 	// print intermediate code - v8 feature!
 
-	// printf("\n%s\n\n", &exeCode.str[0]);
+	if (optPrnInt) printf("\n%s\n\n", &exeCode.str[0]);
 
 	printf("Executing...\n\n");
 	DWORD t = GetTickCount();
@@ -104,5 +114,34 @@ int main(int argc, char *argv[])
 
 void getArgs(int argc, char* argv[])
 {
-
+	for (int i = 2; i < argc; i++)
+	{
+		if (argv[i][0] == '-')
+		{
+			switch (argv[i][1])
+			{
+			case 'i':
+				optPrnInt = true;
+				break;
+			case 'c':
+				optSavInt = true;
+				break;
+			case 'o':
+				optSavOut = true;
+				break;
+			case 'l':
+				optSavLog = true;
+				break;
+			case 's':
+				if (!optDbgMod) optRunSbs = true;
+				break;
+			case 'd':
+				optDbgMod = true;
+				optRunSbs = false; // -s 옵션을 무시합니다.
+				break;
+			default:
+				break;
+			}
+		}
+	}
 }

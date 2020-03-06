@@ -36,4 +36,11 @@ constexpr int retVal_success = 1;
 constexpr int retVal_overflow = -1;
 constexpr int retVal_underflow = -2;
 
+extern bool optPrnInt;
+extern bool optSavInt;
+extern bool optSavOut;
+extern bool optSavLog;
+extern bool optRunSbs;
+extern bool optDbgMod;
+
 int runCode(Code *code);
