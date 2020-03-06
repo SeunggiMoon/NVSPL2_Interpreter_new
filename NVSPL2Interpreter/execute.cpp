@@ -29,7 +29,7 @@
 
 #include "execute.h"
 
-std::string instList = "FfBb+-,IiCcRrSsEeOo:;Qq";
+std::string instList = "FfBb+-,IiCcRrSsEeOoQq";
 std::string::size_type n;
 
 std::string tmp1 = "";
@@ -41,7 +41,7 @@ int runCode(Code *code)
 
 	if (optSavLog)
 	{
-		n = tmp1.find(inst);
+		n = instList.find(inst);
 		if (n != std::string::npos) fprintf(logFile, "%c", inst);
 	}
 
@@ -51,13 +51,19 @@ int runCode(Code *code)
 	case 'f':
 		code->arr_idx++;
 		if (code->arr_idx >= MAX_IDX)
+		{
+			if (optSavLog) fprintf(logFile, "(!)\n");
 			return retVal_overflow;
+		}
 		break;
 	case 'B':
 	case 'b':
 		code->arr_idx--;
 		if (code->arr_idx < 0)
+		{
+			if (optSavLog) fprintf(logFile, "(!)\n");
 			return retVal_underflow;
+		}
 		break;
 	case '+':
 		code->arr[code->arr_idx] += 1.0;
@@ -71,6 +77,7 @@ int runCode(Code *code)
 		sscanf(tmp2, "%lf", &code->input);
 		code->arr[code->arr_idx] += code->input;
 		code->str_idx++; // 음수에 붙어 있는 마이너스 기호가 명령어로 인식되는 것을 막기 위함
+		if (optSavLog) fprintf(logFile, "%lf", code->input);
 		break;
 	case 'I':
 	case 'i':
@@ -104,6 +111,13 @@ int runCode(Code *code)
 	case ':':
 		code->depth++;
 		code->cdepth++;
+		if (optSavLog)
+		{
+			fputc('\n', logFile);
+			for (int i = 0; i < (code->depth - 1) * 4; i++) fputc(' ', logFile); // indent 구현
+			fprintf(logFile, "{\n");
+			for (int i = 0; i < (code->depth) * 4; i++) fputc(' ', logFile);
+		}
 		break;
 	case ';':
 		if (code->arr[code->arr_idx] != 0.0)
@@ -116,11 +130,20 @@ int runCode(Code *code)
 				if (code->str[code->str_idx] == ';') code->cdepth++;
 				if (code->str[code->str_idx] == ':') code->cdepth--;
 			}
+			fputc('\n', logFile);
+			for (int i = 0; i < (code->depth) * 4; i++) fputc(' ', logFile); // indent 구현
 		}
 		else
 		{
 			code->depth--;
 			code->cdepth--;
+			if (optSavLog)
+			{
+				fputc('\n', logFile);
+				for (int i = 0; i < (code->depth) * 4; i++) fputc(' ', logFile); // indent 구현
+				fprintf(logFile, "}\n");
+				for (int i = 0; i < (code->depth) * 4; i++) fputc(' ', logFile);
+			}
 		}
 		break;
 	case 'Q':

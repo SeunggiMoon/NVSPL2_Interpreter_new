@@ -53,7 +53,7 @@ char* msgProgInfo = "\nNVSPL2 Interpreter v8\n(c) 2015~2020 Naissoft. All rights
 char* msgIntFail = "error : failed to create intermediate code file\n";
 char* msgOutFail = "error : failed to create output file\n";
 char* msgLogFail = "error : failed to create log file\n";
-char* msgFinished = "Execution finished with return value";
+char* msgFinished = "\nExecution finished with return value %d (%.3lfs)\n";
 
 char* msgRunErrOverflow = "Runtime error : Memory overflow\n";
 char* msgRunErrUnderflow = "Runtime error : Memory underflow\n";
@@ -177,7 +177,8 @@ int main(int argc, char *argv[])
 	} while (!ifExit);
 
 	DWORD diff = (GetTickCount() - t);
-	printf("\n%s %d (%.3lfs)\n", msgFinished, retValue, (double)diff / 1000);
+	printf(msgFinished, retValue, (double)diff / 1000);
+	if (optSavLog) fprintf(logFile, msgFinished, retValue, (double)diff / 1000);
 
 	if (optSavOut && output != NULL) fclose(output);
 	if (optSavLog && logFile != NULL) fclose(logFile);
