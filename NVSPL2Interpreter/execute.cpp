@@ -29,12 +29,23 @@
 
 #include "execute.h"
 
+std::string instList = "FfBb+-,IiCcRrSsEeOo:;Qq";
+std::string::size_type n;
+
+std::string tmp1 = "";
+const char* tmp2 = "";
+
 int runCode(Code *code)
 {
-	std::string tmp1;
-	const char* tmp2;
+	char inst = code->str[code->str_idx];
 
-	switch (code->str[code->str_idx])
+	if (optSavLog)
+	{
+		n = tmp1.find(inst);
+		if (n != std::string::npos) fprintf(logFile, "%c", inst);
+	}
+
+	switch (inst)
 	{
 	case 'F':
 	case 'f':
@@ -64,22 +75,27 @@ int runCode(Code *code)
 	case 'I':
 	case 'i':
 		printf("%d", (int)(code->arr[code->arr_idx]));
+		if (optSavOut) fprintf(output, "%d", (int)(code->arr[code->arr_idx]));
 		break;
 	case 'C':
 	case 'c':
 		printf("%c", (int)(code->arr[code->arr_idx]));
+		if (optSavOut) fprintf(output, "%c", (int)(code->arr[code->arr_idx]));
 		break;
 	case 'R':
 	case 'r':
 		printf("%f", code->arr[code->arr_idx]);
+		if (optSavOut) fprintf(output, "%f", code->arr[code->arr_idx]);
 		break;
 	case 'S':
 	case 's':
 		printf(" ");
+		if (optSavOut) fprintf(output, " ");
 		break;
 	case 'E':
 	case 'e':
 		printf("\n");
+		if (optSavOut) fprintf(output, "\n");
 		break;
 	case 'O':
 	case 'o':

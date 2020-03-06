@@ -40,13 +40,31 @@ bool optSavLog = false;
 bool optRunSbs = false;
 bool optDbgMod = false;
 
+// log and output files
+
+FILE* logFile;
+FILE* output;
+
+// messages
+
+char* msgUsage = "usage : nvspl2 <filename> <options...>\n";
+char* msgWrongFile = "error : wrong filename\n";
+char* msgProgInfo = "\nNVSPL2 Interpreter v8\n(c) 2015~2020 Naissoft. All rights reserved.\n\n";
+char* msgIntFail = "error : failed to create intermediate code file\n";
+char* msgOutFail = "error : failed to create output file\n";
+char* msgLogFail = "error : failed to create log file\n";
+char* msgFinished = "Execution finished with return value";
+
+char* msgRunErrOverflow = "Runtime error : Memory overflow\n";
+char* msgRunErrUnderflow = "Runtime error : Memory underflow\n";
+
 void getArgs(int argc, char* argv[]);
 
 int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
-		printf("usage : nvspl2 <filename> <options...>\n");
+		printf(msgUsage);
 		return 0;
 	}
 	getArgs(argc, argv);
@@ -54,7 +72,7 @@ int main(int argc, char *argv[])
 	FILE* in = fopen(argv[1], "rt");
 	if (in == NULL)
 	{
-		printf("error : wrong filename\n");
+		printf(msgWrongFile);
 		return 0;
 	}
 
@@ -62,7 +80,7 @@ int main(int argc, char *argv[])
 	Code exeCode;
 	bool ifExit = false;
 
-	printf("\nNVSPL2 Interpreter v8\n(c) 2015~2020 Naissoft. All rights reserved.\n\n");
+	printf(msgProgInfo);
 	printf("Analyzing...\n");
 
 	initCode(&exeCode);
@@ -72,7 +90,7 @@ int main(int argc, char *argv[])
 	analyzeCode(in, &exeCode);
 	fclose(in);
 
-	// print intermediate code - v8 feature!
+	// print intermediate code
 
 	if (optPrnInt)
 	{
@@ -80,7 +98,7 @@ int main(int argc, char *argv[])
 		printf("\n%s\n\n", &exeCode.str[0]);
 	}
 
-	// save intermediate code - v8 feature!
+	// save intermediate code
 	
 	if (optSavInt)
 	{
@@ -93,11 +111,39 @@ int main(int argc, char *argv[])
 		FILE* intCode = fopen(fName.c_str(), "wt");
 		if (intCode == NULL)
 		{
-			printf("error : failed to create intermediate code file\n");
+			printf(msgIntFail);
 			return 0;
 		}
 		fprintf(intCode, "%s", &exeCode.str[0]);
 		fclose(intCode);
+	}
+
+	if (optSavOut)
+	{
+		std::string fName = argv[1];
+		std::string fSuffix = "-output.txt";
+		fName += fSuffix;
+
+		output = fopen(fName.c_str(), "wt");
+		if (output == NULL)
+		{
+			printf(msgOutFail);
+			return 0;
+		}
+	}
+
+	if (optSavLog)
+	{
+		std::string fName = argv[1];
+		std::string fSuffix = ".log";
+		fName += fSuffix;
+
+		logFile = fopen(fName.c_str(), "wt");
+		if (logFile == NULL)
+		{
+			printf(msgLogFail);
+			return 0;
+		}
 	}
 
 	printf("Executing...\n\n");
@@ -117,11 +163,13 @@ int main(int argc, char *argv[])
 		case retVal_success:
 			break;
 		case retVal_overflow:
-			printf("Runtime error : Memory overflow\n");
+			printf(msgRunErrOverflow);
+			if (optSavLog) fprintf(logFile, msgRunErrOverflow);
 			ifExit = true;
 			break;
 		case retVal_underflow:
-			printf("Runtime error : Memory underflow\n");
+			printf(msgRunErrUnderflow);
+			if (optSavLog) fprintf(logFile, msgRunErrUnderflow);
 			ifExit = true;
 			break;
 		}
@@ -129,7 +177,10 @@ int main(int argc, char *argv[])
 	} while (!ifExit);
 
 	DWORD diff = (GetTickCount() - t);
-	printf("\nExecution finished with return value %d (%.3lfs)\n", retValue, (double)diff / 1000);
+	printf("\n%s %d (%.3lfs)\n", msgFinished, retValue, (double)diff / 1000);
+
+	if (optSavOut && output != NULL) fclose(output);
+	if (optSavLog && logFile != NULL) fclose(logFile);
 
 	return 0;
 }
@@ -155,11 +206,11 @@ void getArgs(int argc, char* argv[])
 				optSavLog = true;
 				break;
 			case 's':
-				if (!optDbgMod) optRunSbs = true;
+				if (!optDbgMod) optRunSbs = true; // -d 옵션이 비활성화된 상태일 때 -s 옵션을 활성화합니다.
 				break;
 			case 'd':
 				optDbgMod = true;
-				optRunSbs = false; // -s 옵션을 무시합니다.
+				optRunSbs = false; // -s 옵션을 비활성화합니다.
 				break;
 			default:
 				break;

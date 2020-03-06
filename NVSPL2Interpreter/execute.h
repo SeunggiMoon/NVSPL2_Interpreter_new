@@ -45,4 +45,7 @@ extern bool optSavLog;
 extern bool optRunSbs;
 extern bool optDbgMod;
 
+extern FILE* logFile;
+extern FILE* output;
+
 int runCode(Code *code);
