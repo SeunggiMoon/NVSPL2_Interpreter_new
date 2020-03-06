@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// NVSPL2 Interpreter v7
+// NVSPL2 Interpreter v8
 // (c) 2015~2020 Naissoft. All rights reserved.
 //
 // execute.h
@@ -29,13 +29,11 @@
 
 #pragma once
 
+#include "code.h"
+
 constexpr int retVal_exit = 0;
 constexpr int retVal_success = 1;
 constexpr int retVal_overflow = -1;
 constexpr int retVal_underflow = -2;
-
-#include <string>
-
-#include "code.h"
 
 int runCode(Code *code);

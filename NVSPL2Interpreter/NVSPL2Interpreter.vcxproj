@@ -80,12 +80,14 @@
   <ItemGroup>
     <ClCompile Include="analyze.cpp" />
     <ClCompile Include="code.cpp" />
+    <ClCompile Include="debug.cpp" />
     <ClCompile Include="execute.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="analyze.h" />
     <ClInclude Include="code.h" />
+    <ClInclude Include="debug.h" />
     <ClInclude Include="execute.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

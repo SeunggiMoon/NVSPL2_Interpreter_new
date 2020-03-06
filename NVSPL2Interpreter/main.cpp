@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// NVSPL2 Interpreter v7
+// NVSPL2 Interpreter v8
 // (c) 2015~2020 Naissoft. All rights reserved.
 //
 // main.cpp - ¡÷ ∑Á∆æ
@@ -30,6 +30,8 @@
 #include "analyze.h"
 #include "execute.h"
 #include <Windows.h>
+
+void getArgs(int argc, char* argv[]);
 
 int main(int argc, char *argv[])
 {
@@ -98,4 +100,9 @@ int main(int argc, char *argv[])
 	printf("\nExecution finished with return value %d (%.3lfs)\n", retValue, (double)diff / 1000);
 
 	return 0;
+}
+
+void getArgs(int argc, char* argv[])
+{
+
 }

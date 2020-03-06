@@ -21,13 +21,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// NVSPL2 Interpreter v7
+// NVSPL2 Interpreter v8
 // (c) 2015~2020 Naissoft. All rights reserved.
 //
 // execute.cpp - 코드 실행부
 //
 
 #include "execute.h"
+
+#include <string>
 
 int runCode(Code *code)
 {

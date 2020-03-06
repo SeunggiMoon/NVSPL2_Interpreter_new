@@ -27,6 +27,9 @@
     <ClCompile Include="code.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="analyze.h">
@@ -36,6 +39,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="code.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
