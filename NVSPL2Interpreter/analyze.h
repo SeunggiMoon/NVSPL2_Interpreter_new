@@ -36,8 +36,6 @@
 
 #include "code.h"
 
-#define MAX_MEM 1024
-
 extern bool optPrnInt;
 extern bool optSavInt;
 extern bool optSavOut;

@@ -38,6 +38,7 @@ const char* tmp2 = "";
 int runCode(Code *code)
 {
 	char inst = code->str[code->str_idx];
+	bool ifNotanInst = false;
 
 	if (optSavLog)
 	{
@@ -74,9 +75,11 @@ int runCode(Code *code)
 	case ',':
 		tmp1 = std::string(code->str.begin() + code->str_idx + 1, code->str.end()); // 입력받을 수가 처음에 오도록 string 생성
 		tmp2 = tmp1.c_str();
+
 		sscanf(tmp2, "%lf", &code->input);
 		code->arr[code->arr_idx] += code->input;
 		code->str_idx++; // 음수에 붙어 있는 마이너스 기호가 명령어로 인식되는 것을 막기 위함
+
 		if (optSavLog) fprintf(logFile, "%lf", code->input);
 		break;
 	case 'I':
@@ -154,7 +157,9 @@ int runCode(Code *code)
 		return retVal_exit;
 		break;
 	default:
+		ifNotanInst = true;
 		break;
 	}
-	return retVal_success;
+	if (!ifNotanInst) return retVal_success;
+	else return retVal_notanInst;
 }

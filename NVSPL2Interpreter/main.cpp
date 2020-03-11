@@ -27,23 +27,24 @@
 // main.cpp - 주 루틴
 //
 
+#include "funcs.h"
 #include "analyze.h"
 #include "execute.h"
 #include <Windows.h>
-
-// options
-
-bool optPrnInt = false;
-bool optSavInt = false;
-bool optSavOut = false;
-bool optSavLog = false;
-bool optRunSbs = false;
-bool optDbgMod = false;
 
 // log and output files
 
 FILE* logFile;
 FILE* output;
+
+// options
+
+bool optPrnInt;
+bool optSavInt;
+bool optSavOut;
+bool optSavLog;
+bool optRunSbs;
+bool optDbgMod;
 
 // messages
 
@@ -55,10 +56,12 @@ char* msgOutFail = "error : failed to create output file\n";
 char* msgLogFail = "error : failed to create log file\n";
 char* msgFinished = "\nExecution finished with return value %d (%.3lfs)\n";
 
+char* msgSuccess = "\nInstruction %c has been successfully operated\n";
+char* msgNotAnInst = "\nCharacter '%c' is not an instruction\n";
+char* msgPressKey = "\nPress any key to continue, q to quit Step-by-step mode\n";
+
 char* msgRunErrOverflow = "Runtime error : Memory overflow\n";
 char* msgRunErrUnderflow = "Runtime error : Memory underflow\n";
-
-void getArgs(int argc, char* argv[]);
 
 int main(int argc, char *argv[])
 {
@@ -151,6 +154,8 @@ int main(int argc, char *argv[])
 
 	// execute code
 
+	char ch = '\0';
+
 	do
 	{
 		retValue = runCode(&exeCode);
@@ -173,6 +178,25 @@ int main(int argc, char *argv[])
 			ifExit = true;
 			break;
 		}
+
+		if (optRunSbs)
+		{
+			if (retValue == retVal_success)
+			{
+				printf(msgSuccess, 
+					(exeCode.str_idx > 0) ? ((exeCode.str[exeCode.str_idx - 1] == ',') ? ',' : (exeCode.str[exeCode.str_idx])) : (exeCode.str[exeCode.str_idx]));
+				if (exeCode.str[exeCode.str_idx - 1] == ',') printf("Input value : %lf\n", exeCode.input); // , 명령어를 실행한 후 인덱스가 이동하므로 다른 명령어와는 달리 처리함
+
+				printf("Array index : %d, value : %lf, Instruction string index : %d, Routine depth : %d\n",
+					exeCode.arr_idx, exeCode.arr[exeCode.arr_idx], exeCode.str_idx, exeCode.depth);
+			}
+			else if (retValue == retVal_notanInst) printf(msgNotAnInst, exeCode.str[exeCode.str_idx]);
+			
+			printf(msgPressKey);
+			
+			ch = getch();			
+			if (ch == 'q') optRunSbs = false;
+		}
 		exeCode.str_idx++;
 	} while (!ifExit);
 
@@ -184,38 +208,4 @@ int main(int argc, char *argv[])
 	if (optSavLog && logFile != NULL) fclose(logFile);
 
 	return 0;
-}
-
-void getArgs(int argc, char* argv[])
-{
-	for (int i = 2; i < argc; i++)
-	{
-		if (argv[i][0] == '-')
-		{
-			switch (argv[i][1])
-			{
-			case 'i':
-				optPrnInt = true;
-				break;
-			case 'c':
-				optSavInt = true;
-				break;
-			case 'o':
-				optSavOut = true;
-				break;
-			case 'l':
-				optSavLog = true;
-				break;
-			case 's':
-				if (!optDbgMod) optRunSbs = true; // -d 옵션이 비활성화된 상태일 때 -s 옵션을 활성화합니다.
-				break;
-			case 'd':
-				optDbgMod = true;
-				optRunSbs = false; // -s 옵션을 비활성화합니다.
-				break;
-			default:
-				break;
-			}
-		}
-	}
 }

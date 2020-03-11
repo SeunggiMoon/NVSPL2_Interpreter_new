@@ -24,20 +24,12 @@
 // NVSPL2 Interpreter v8
 // (c) 2015~2020 Naissoft. All rights reserved.
 //
-// execute.h
+// funcs.h
 //
 
 #pragma once
 
-#include "code.h"
-
-#include <string>
-
-constexpr int retVal_exit = 0;
-constexpr int retVal_success = 1;
-constexpr int retVal_notanInst = 2;
-constexpr int retVal_overflow = -1;
-constexpr int retVal_underflow = -2;
+// options
 
 extern bool optPrnInt;
 extern bool optSavInt;
@@ -46,7 +38,4 @@ extern bool optSavLog;
 extern bool optRunSbs;
 extern bool optDbgMod;
 
-extern FILE* logFile;
-extern FILE* output;
-
-int runCode(Code *code);
+void getArgs(int argc, char* argv[]);

@@ -24,29 +24,41 @@
 // NVSPL2 Interpreter v8
 // (c) 2015~2020 Naissoft. All rights reserved.
 //
-// execute.h
+// funcs.cpp - 선택 기능 구현부
 //
 
-#pragma once
+#include "funcs.h"
 
-#include "code.h"
-
-#include <string>
-
-constexpr int retVal_exit = 0;
-constexpr int retVal_success = 1;
-constexpr int retVal_notanInst = 2;
-constexpr int retVal_overflow = -1;
-constexpr int retVal_underflow = -2;
-
-extern bool optPrnInt;
-extern bool optSavInt;
-extern bool optSavOut;
-extern bool optSavLog;
-extern bool optRunSbs;
-extern bool optDbgMod;
-
-extern FILE* logFile;
-extern FILE* output;
-
-int runCode(Code *code);
+void getArgs(int argc, char* argv[])
+{
+	for (int i = 2; i < argc; i++)
+	{
+		if (argv[i][0] == '-')
+		{
+			switch (argv[i][1])
+			{
+			case 'i':
+				optPrnInt = true;
+				break;
+			case 'c':
+				optSavInt = true;
+				break;
+			case 'o':
+				optSavOut = true;
+				break;
+			case 'l':
+				optSavLog = true;
+				break;
+			case 's':
+				if (!optDbgMod) optRunSbs = true; // -d 옵션이 비활성화된 상태일 때 -s 옵션을 활성화합니다.
+				break;
+			case 'd':
+				optDbgMod = true;
+				optRunSbs = false; // -s 옵션을 비활성화합니다.
+				break;
+			default:
+				break;
+			}
+		}
+	}
+}

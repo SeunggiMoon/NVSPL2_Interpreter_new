@@ -85,6 +85,7 @@
     <ClCompile Include="code.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="execute.cpp" />
+    <ClCompile Include="funcs.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +93,7 @@
     <ClInclude Include="code.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="execute.h" />
+    <ClInclude Include="funcs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
